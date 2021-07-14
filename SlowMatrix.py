@@ -1,65 +1,102 @@
 class SlowMatrix:
 
-	## The constructor
-	# @param matrix A 2d Python list containing data
 	def __init__(self, matrix):
-		pass
+          self.n = matrix
+          self.rows = len(matrix)
+          self.columns = len(matrix[0])
 
-	## Matrix multiplication
-	# @param self SlowMatrix1
-	# @param mat2 SlowMatrix2
+
 	def __matmul__(self, mat2):
-		pass
+           m = [[0 for x in range(mat2.columns)] for x in range(self.rows)]
+           for i in range(self.rows):
+                for j in range(self.columns):
+                   z = 0
+                   for k in range(self.columns):
+                      z = z + self.n[i][k]*mat2.n[k][j]
+                m[i][j] = z
+           mat = SlowMatrix(m)
+           return mat
+# to see output run print(s.__matmul__(mat2).n
 
-	## Element wise multiplication
-	# @param self SlowMatrix1
-	# @param mat2 SlowMatrix2
+
 	def __mul__(self, mat2):
-		pass
+	     m = [[0 for x in range(self.columns)] for x in range(mat2.rows)]
+             for i in range(self.rows):
+                 for j in range(self.columns):
+                    m[i][j] = self.n[i][j]*mat2.n[i][j]
+             mat = SlowMatrix(m)
+             return mat
+# to see output run print(s.__mul__(mat2).n
 
-	## Element wise addition
-	# @param self SlowMatrix1
-	# @param mat2 SlowMatrix2
+
 	def __add__(self, mat2):
-		pass
+	    m = [[0 for x in range(self.columns)] for x in range(self.rows)]
+            for i in range(self.rows):
+              for j in range(self.columns):
+                 m[i][j] = self.n[i][j] + mat2.n[i][j]
+           mat = SlowMatrix(m) 
+           return mat            
+# to get output, run print(s.__add__(mat2).n)
 
-	## Element wise subtraction
-	# @param self SlowMatrix1
-	# @param mat2 SlowMatrix2
+
+
 	def __sub__(self, mat2):
-		pass
+	   m = [[0 for x in range(self.columns)] for x in range(mat2.rows)]
+           for i in range(self.rows):
+              for j in range(self.columns):
+                 m[i][j] = self.n[i][j] - mat2.n[i][j]
+           mat = SlowMatrix(m)
+           return mat
+# to get output run print(s.__sub__(mat2).n)
 
-	## Equality operator
-	# @param self SlowMatrix1
-	# @param mat2 SlowMatrix2
+
 	def __eq__(self, mat2):
-		pass
+	    for i in range(self.rows):
+              for j in range(self.columns):
+                if self.n[i][j] != mat2.n[i][j] : 
+                  return 0
+            return 1 
 
-	## Calculate transpose
+	
 	def transpose(self):
-		pass
+	    m = [[0 for x in range(self.rows)] for x in range(self.columns)]
+            for i in range(self.columns):
+               for j in range(self.rows):
+                  m[i][j] = self.n[j][i]
+            mat = SlowMatrix(m)
+            return mat    
+ # to see the transpose, run print(s.transpose().n)
 
-	## Creates a SlowMatrix of 1s
-	# @param shape A python pair (row, col)
+
 	def ones(shape):
-		pass
+	    m = shape[0]
+            n = shape[1]
+            arr = [[1 for x in range(m)] for x in range(n)]
+            p = SlowMatrix(arr)
+            return p
+ # to use this, run print(SlowMatrix.ones((rows,columns)))
 
-	## Creates a SlowMatrix of 0s
-	# @param shape A python pair (row, col)
+
 	def zeros(shape):
-		pass
+            m = shape[0]
+            n = shape[1]
+            arr = [[0 for x in range(m)] for x in range(n)]
+            p = SlowMatrix(arr)
+            return p
+ #to use this, run print(SlowMatrix.zeros((rows,columns)))
 
-	## Returns i,jth element
-	# @param key A python pair (i,j)
-	def __getitem__(self, key):
-		pass
 
-	## Sets i,jth element
-	# @param key A python pair (i,j)
-	# #param value Value to set
+	def __getitem__(self, key = []):
+		return self.n[key[0]][key[1]]
+
 	def __setitem__(self, key, value):
-		pass
+		self.n[key[0]][key[1]] = value
+                return
 
 	## Converts SlowMatrix to a Python string
 	def __str__(self):
-		pass
+	   b = str()
+           for i in range(self.rows):
+               for j in range(self.columns):
+               b  = b + str(self.n[i][j])
+           return b   
